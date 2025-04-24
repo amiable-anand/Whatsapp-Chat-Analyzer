@@ -11,3 +11,29 @@ Chat Anazlysser is a Streamlit-based web app that lets you upload WhatsApp chat 
 - 📈 User activity heatmaps
 - 👥 Individual or group participant insights
 
+📄 Sample Usage
+Export your WhatsApp chat as .txt (without media)
+
+Upload the file in the web app
+
+Choose a user or analyze "Everyone"
+
+Visualize insights like timelines, word clouds, heatmaps & more!
+
+🌍 Deployment (Heroku)
+Add the files:
+
+Procfile
+
+setup.sh
+
+.streamlit/config.toml
+
+Then push to Heroku using Git. You’re good to go!
+
+📌 Acknowledgements
+Developed using Python, Streamlit, Matplotlib, Seaborn
+
+Inspired by the need for personal digital reflection and NLP learning
+
+Built for learning & personal analysis purposes.
