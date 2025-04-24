@@ -1,2 +1,13 @@
-# Whatsapp-Chat-Analyzer
-Chat Analyzer is a smart chat analysis tool that extracts insights from conversations. It offers sentiment analysis, keyword extraction, message stats, and visualizations. Perfect for analyzing WhatsApp, Telegram, or custom chat logs with ease. Great for personal or research use!
+# Chat Analyzer 💬🧠
+
+Chat Anazlysser is a Streamlit-based web app that lets you upload WhatsApp chat exports and discover meaningful insights through intuitive visualizations. It’s ideal for both personal reflection and data-driven storytelling.
+
+## ✨ Features
+
+- 📊 Message stats (total messages, words, links, media, deletions)
+- 📅 Daily and monthly chat timelines
+- 🔍 Word cloud and most common words
+- 😂 Emoji analysis with usage frequency
+- 📈 User activity heatmaps
+- 👥 Individual or group participant insights
+
