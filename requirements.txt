@@ -1,0 +1,24 @@
+# WhatsInsight - WhatsApp Chat Analyzer Dependencies
+# Core Flask
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# Data processing
+numpy>=1.21.0
+pandas>=2.0.0
+
+# Visualizations
+plotly>=5.0.0
+wordcloud>=1.9.2
+matplotlib>=3.7.0
+
+# NLP and ML (optional)
+transformers>=4.21.0
+torch>=1.12.0
+emoji>=2.0.0
+
+# Utilities
+python-dotenv>=0.19.0
+
+# Production server
+gunicorn>=20.1.0

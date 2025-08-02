@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - WhatsInsight</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>📊 Analysis Results</h1>
+            <p>Deep insights from your WhatsApp conversations</p>
+            <a href="{{ url_for('index') }}" class="btn-secondary">Analyze Another Chat</a>
+        </header>
+
+        <main>
+            <!-- Basic Statistics -->
+            <section>
+                <h2>📈 Basic Statistics</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>{{ results.basic_stats.total_messages }}</h3>
+                        <p>Total Messages</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>{{ results.basic_stats.unique_users }}</h3>
+                        <p>Active Users</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>{{ results.emoji_stats.total_emojis or 0 }}</h3>
+                        <p>Total Emojis</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>{{ results.basic_stats.date_range }}</h3>
+                        <p>Date Range</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>{{ "%.1f"|format(results.basic_stats.avg_messages_per_day) }}</h3>
+                        <p>Avg Messages/Day</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>{{ results.basic_stats.total_words or 0 }}</h3>
+                        <p>Total Words</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>{{ results.basic_stats.media_messages or 0 }}</h3>
+                        <p>Media Messages</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>{{ "%.1f"|format(results.basic_stats.avg_words_per_message or 0) }}</h3>
+                        <p>Avg Words/Message</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Comprehensive Dashboard -->
+            {% if results.charts.dashboard %}
+            <section>
+                <h2>🎯 Interactive Dashboard</h2>
+                <div class="visualization">
+                    {{ results.charts.dashboard|safe }}
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Sentiment Analysis -->
+            {% if results.charts.sentiment_chart %}
+            <section>
+                <h2>😊 Sentiment Analysis</h2>
+                <div class="insight-grid">
+                    <div class="insight-card">
+                        <h4>Positive</h4>
+                        <p>{{ "%.1f"|format(results.sentiment_distribution.positive) }}%</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4>Negative</h4>
+                        <p>{{ "%.1f"|format(results.sentiment_distribution.negative) }}%</p>
+                    </div>
+                    <div class="insight-card">
+                        <h4>Neutral</h4>
+                        <p>{{ "%.1f"|format(results.sentiment_distribution.neutral) }}%</p>
+                    </div>
+                </div>
+                <div class="visualization">
+                    <div id="sentiment-chart" style="width:100%;height:400px;"></div>
+                    <script>
+                        var sentimentData = {{ results.charts.sentiment_chart|safe }};
+                        Plotly.newPlot('sentiment-chart', sentimentData.data, sentimentData.layout);
+                    </script>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- User Activity -->
+            {% if results.charts.user_activity_chart %}
+            <section>
+                <h2>👥 User Activity</h2>
+                <div class="visualization">
+                    <div id="user-activity-chart" style="width:100%;height:400px;"></div>
+                    <script>
+                        var userActivityData = {{ results.charts.user_activity_chart|safe }};
+                        Plotly.newPlot('user-activity-chart', userActivityData.data, userActivityData.layout);
+                    </script>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Timeline Analysis -->
+            {% if results.charts.timeline_chart %}
+            <section>
+                <h2>📅 Message Timeline</h2>
+                <div class="visualization">
+                    <div id="timeline-chart" style="width:100%;height:400px;"></div>
+                    <script>
+                        var timelineData = {{ results.charts.timeline_chart|safe }};
+                        Plotly.newPlot('timeline-chart', timelineData.data, timelineData.layout);
+                    </script>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Activity Heatmap -->
+            {% if results.charts.heatmap_chart %}
+            <section>
+                <h2>🔥 Hourly Activity Pattern</h2>
+                <div class="visualization">
+                    <div id="heatmap-chart" style="width:100%;height:400px;"></div>
+                    <script>
+                        var heatmapData = {{ results.charts.heatmap_chart|safe }};
+                        Plotly.newPlot('heatmap-chart', heatmapData.data, heatmapData.layout);
+                    </script>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Message Type Distribution -->
+            {% if results.charts.message_type_chart %}
+            <section>
+                <h2>📱 Message Type Distribution</h2>
+                <div class="visualization">
+                    <div id="message-type-chart" style="width:100%;height:400px;"></div>
+                    <script>
+                        var messageTypeData = {{ results.charts.message_type_chart|safe }};
+                        Plotly.newPlot('message-type-chart', messageTypeData.data, messageTypeData.layout);
+                    </script>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Word Cloud -->
+            {% if results.wordcloud_img %}
+            <section>
+                <h2>☁️ Word Cloud</h2>
+                <div class="visualization">
+                    <img src="data:image/png;base64,{{ results.wordcloud_img }}" alt="Word Cloud" style="max-width:100%; height:auto;">
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Emoji Analysis -->
+            {% if results.charts.emoji_chart %}
+            <section>
+                <h2>😂 Emoji Usage</h2>
+                <div class="visualization">
+                    <div id="emoji-chart" style="width:100%;height:400px;"></div>
+                    <script>
+                        var emojiData = {{ results.charts.emoji_chart|safe }};
+                        Plotly.newPlot('emoji-chart', emojiData.data, emojiData.layout);
+                    </script>
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Participation Over Time -->
+            {% if results.charts.participation_chart %}
+            <section>
+                <h2>📊 User Participation Over Time</h2>
+                <div class="visualization">
+                    {{ results.charts.participation_chart|safe }}
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Trending Words -->
+            {% if results.trending_words %}
+            <section>
+                <h2>🔍 Trending Words</h2>
+                <div class="trending-words">
+                    {% for word in results.trending_words[:15] %}
+                        <span class="trending-word">{{ word }}</span>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Keywords Analysis -->
+            {% if results.keyword_stats %}
+            <section>
+                <h2>🔤 Top Keywords</h2>
+                <div class="trending-words">
+                    {% for keyword in results.keyword_stats[:10] %}
+                        <span class="trending-word">{{ keyword.word }} ({{ keyword.count }})</span>
+                    {% endfor %}
+                </div>
+            </section>
+            {% endif %}
+
+            <!-- Export Options -->
+            <section>
+                <h2>📤 Export & Share</h2>
+                <div class="export-options">
+                    <button onclick="downloadReport()" class="btn-primary">Download Report</button>
+                    <button onclick="shareResults()" class="btn-secondary">Share Results</button>
+                    <button onclick="exportData()" class="btn-secondary">Export Data</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>Analysis completed on {{ results.processed_at }}</p>
+            <p>&copy; 2024 WhatsInsight. Built with ❤️ for deeper insights.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Results data available via API endpoints
+        var results = {};
+    </script>
+    <script src="{{ url_for('static', filename='js/results.js') }}"></script>
+</body>
+</html>

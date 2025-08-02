@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>WhatsInsight</title>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>WhatsInsight</h1>
+            <p>Unlock deep insights from your WhatsApp conversations</p>
+        </header>
+        <main>
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="flash-messages">
+                        {% for message in messages %}
+                            <div class="flash-message">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            
+            <section>
+                <h2>Upload Chat File</h2>
+                <form action="/analyze" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" required>
+                    <p style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">Please upload a .txt file exported from WhatsApp</p>
+                    <select name="date_format">
+                        <option value="dd/mm/yyyy">DD/MM/YYYY</option>
+                        <option value="mm/dd/yyyy">MM/DD/YYYY</option>
+                    </select>
+                    <button type="submit">Analyze</button>
+                </form>
+            </section>
+            <!-- Analysis results will be displayed here -->
+            <section id="results">
+                <!-- Results go here -->
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2024 WhatsInsight. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
