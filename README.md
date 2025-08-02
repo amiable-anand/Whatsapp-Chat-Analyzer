@@ -50,8 +50,8 @@ WhatsInsight transforms your WhatsApp chat exports into meaningful insights thro
 
 1. **Clone the Repository**
 ```bash
-git clone https://github.com/amiable-anand/WhatsInsight.git
-cd WhatsInsight
+git clone https://github.com/amiable-anand/Whatsapp-Chat-Analyzer.git
+cd Whatsapp-Chat-Analyzer
 ```
 
 2. **Set Up Virtual Environment**
